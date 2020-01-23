@@ -73,8 +73,20 @@ public class ExchangeRatesAPITests {
                 queryParam("start_at", "2000-01-01").
                 queryParam("end_at", "2000-12-31").
                 queryParam("base", "USD").
-                queryParam("symbols", "EUR,GBP,JPY").
+                queryParam("symbols", "EUR", "GBP", "JPY").
                 get();
         System.out.println(response.prettyPrint());
+    }
+
+    /**
+     * Given request parameter "base" is "USD"
+     * When user sends request to "api.openrates.io"
+     * Then response code should be 200
+     * And response body must contain ""base": "USD""
+     */
+
+    @Test
+    public void test6(){
+
     }
 }
