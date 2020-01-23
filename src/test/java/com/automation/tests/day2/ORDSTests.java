@@ -2,6 +2,7 @@ package com.automation.tests.day2;
 
 
 import io.restassured.RestAssured;
+import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
@@ -59,5 +60,19 @@ public class ORDSTests {
 
         //get information about response content type, you can retrieve from response object
         System.out.println("What kind of content server sends to you, in this response: "+response.getHeader("Content-Type"));
+    }
+
+//    #Task: perform GET request to /regions, print body and all headers.
+    @Test
+    public void test3(){
+        Response response = given().get(baseURI+"/regions");
+        assertEquals(200, response.getStatusCode());
+        //to get specific header
+        Header header = response.getHeaders().get("Content-Type");
+        //print all headers one by one
+        for(Header h: response.getHeaders()){
+            System.out.println(h);
+        }
+        System.out.println(response.prettyPrint());
     }
 }
