@@ -1,9 +1,6 @@
 package com.automation.tests.day2;
-
-import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -86,7 +83,13 @@ public class ExchangeRatesAPITests {
      */
 
     @Test
-    public void test6(){
-
+    public void test6() {
+        Response response = given().
+                baseUri(baseURI + "latest").
+                queryParam("base", "USD").
+                get();
+        String body = response.getBody().asString();
+        assertEquals(200, response.getStatusCode());
+        assertTrue(body.contains("\"base\":\"USD\""));
     }
 }
