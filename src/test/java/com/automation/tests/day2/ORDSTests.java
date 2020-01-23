@@ -73,6 +73,7 @@ public class ORDSTests {
         for(Header h: response.getHeaders()){
             System.out.println(h);
         }
+        System.out.println("##########################");
         System.out.println(response.prettyPrint());
     }
 }
