@@ -8,4 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ExchangeRatesAPITests {
     private String baseURI = "http://api.openrates.io/";
+
+    @Test
+    public void test1(){
+        Response response = given().baseUri(baseURI+"latest").get();
+        assertEquals(200, response.getStatusCode());
+    }
 }
