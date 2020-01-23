@@ -24,5 +24,7 @@ public class ORDSTests {
         System.out.println(response.getBody().asString());
 
         assertEquals(200, response.getStatusCode());
+
+        System.out.println(response.prettyPrint());
     }
 }
