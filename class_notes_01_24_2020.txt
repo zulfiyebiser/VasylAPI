@@ -1,0 +1,32 @@
+Today is 01/24/2020
+
+	1st part review (with assertThat(), hamcrest library)
+
+
+	2nd part:
+			Json Path: how to retrieve values from json file (as single variable or collection), and how to search in json response.
+
+
+############################
+
+	let's import swagger collection of ORDS to postman
+
+	https://www.getpostman.com/collections/202f1655167201fe8efe - this is a postman collection of api requests. Here you can see what kind of request you may perform.
+
+
+	{{baseUrl}} - it's a variable. and it can be changed in settings.
+
+* optional (if you don't want to destroy mine:[)
+
+	go to collection -> edit -> variables -> set url of your EC2 (where you have SQL Oracle DB and ORDS web service)
+	instance. You can leave it default, in case you don't have your own ec2 with ORDS.
+
+	ORDS swagger doc: https://app.swaggerhub.com/apis-docs/vfom/ords-generated_api/1.0.0#/
+
+####################################################
+
+
+please comeback at 11:18
+
+
+
