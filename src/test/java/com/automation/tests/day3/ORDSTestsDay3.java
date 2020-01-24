@@ -50,5 +50,12 @@ public class ORDSTestsDay3 {
         //is is coming from ---> import static org.hamcrest.Matchers.*;
     }
 
+    /**
+     * given path parameter is "/regions/{id}"
+     * when user makes get request
+     * and region id is equals to 1
+     * then assert that status code is 200
+     * and assert that region name is Europe
+     */
 
 }
