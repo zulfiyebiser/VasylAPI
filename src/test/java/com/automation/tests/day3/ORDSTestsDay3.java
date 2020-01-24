@@ -8,6 +8,7 @@ import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -127,6 +128,16 @@ public class ORDSTestsDay3 {
                 accept("application/json").
                 when().
                 get("/countries").prettyPeek().jsonPath();
+
+        List<HashMap<String, ?>> allCountries = json.get("items");
+
+        System.out.println(allCountries);
+            // when we read data from json response, values are not only strings
+        //so if we are not sure that all values will have same data type
+        //we can put ?
+        for(HashMap<String, ?> map: allCountries){
+            System.out.println(map);
+        }
     }
 
 
