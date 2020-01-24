@@ -40,7 +40,7 @@ public class MetaWeatherTests {
     // /users/100/ - 100 it's a path parameter
     // /users/255/ - 155 it's a path parameter
     // /users/255?name=James | name - query parameter key=value , key it's a query parameter
-    //        "woeid": 2514815,
+    //        "woeid": 2514815, this woeid stands for 	Where On Earth ID, based on this value we can get weather info in specific place
     @Test
     public void test2() {
         Response response = given()
