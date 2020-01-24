@@ -8,6 +8,8 @@ import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.*;
@@ -43,11 +45,11 @@ public class ORDSTestsDay3 {
         given().
                 accept("application/json").
                 pathParam("id", 100).
-        when().get("/employees/{id}").
+                when().get("/employees/{id}").
                 then().assertThat().statusCode(200).
                 and().assertThat().body("employee_id", is(100),
-                      "department_id", is(90),
-                                              "last_name", is("King")).
+                "department_id", is(90),
+                "last_name", is("King")).
                 log().all(true);
         //body ("phone_number") --> 515.123.4567
         //is is coming from ---> import static org.hamcrest.Matchers.*;
@@ -64,13 +66,13 @@ public class ORDSTestsDay3 {
      */
 
     @Test
-    public void test3(){
+    public void test3() {
         given().
                 accept("application/json").
                 pathParam("id", 1).
-        when().
+                when().
                 get("/regions/{id}").
-        then().
+                then().
                 assertThat().statusCode(200).
                 assertThat().body("region_name", is("Europe")).
                 time(lessThan(10L), TimeUnit.SECONDS).
@@ -80,16 +82,36 @@ public class ORDSTestsDay3 {
     }
 
     @Test
-    public void test4(){
-         JsonPath json = given().
+    public void test4() {
+        JsonPath json = given().
                 accept("application/json").
-         when().
+                when().
                 get("/employees").
-         thenReturn().jsonPath();
+                thenReturn().jsonPath();
 
         //items[employee1, employee2, employee3] | items[0] = employee1.first_name = Steven
-         String nameOfFirstEmployee = json.getString("items[0].first_name");
 
-        System.out.println("First employee name: "+nameOfFirstEmployee);
+        String nameOfFirstEmployee = json.getString("items[0].first_name");
+        String nameOfLastEmployee = json.getString("items[-1].first_name"); //-1 - last index
+
+        System.out.println("First employee name: " + nameOfFirstEmployee);
+        System.out.println("Last employee name: " + nameOfLastEmployee);
+        //in JSON, employee looks like object that consists of params and their values
+        //we can parse that json object and store in the map.
+        Map<String, ?> firstEmployee = json.get("items[0]"); // we put ? because it can be also not String
+        System.out.println(firstEmployee);
+
+        //since firstEmployee it's a map (key-value pair, we can iterate through it by using Entry. entry represent one key=value pair)
+        for (Map.Entry<String, ?> entry : firstEmployee.entrySet()) {
+            System.out.println("key: " + entry.getKey() + ", value: " + entry.getValue());
+        }
+//       get and print all last names
+        List<String> lastNames = json.get("items.last_name");
+        for (String str : lastNames) {
+            System.out.println("last name: " + str);
+        }
+
     }
+
+
 }
