@@ -159,6 +159,31 @@ public class ORDSTestsDay3 {
     //get collection of phone numbers, from employees
     //and replace all dots "." in every phone number with dash "-"
 
+    @Test
+    public void test7(){
+        List<Object> phoneNumbers=given().
+                accept("application/json").
+                when().get("/employees").
+                thenReturn().jsonPath().get("items.phone_number");
+
+//        Replaces each element of this list with the result of applying the operator to that element.
+//        replace '.' with '-' in every value
+        phoneNumbers.replaceAll(phone -> phone.toString().replace(".", "-"));
+
+        System.out.println(phoneNumbers);
+    }
+
+
+    /**
+     * Given accept type as JSON
+     * And path parameter is id
+     * When user sends get request to /locations
+     *  Then user verifies that status code is 200
+     *  And user verifies that location_id is 1700
+     *  And user verifies that postal_code is 98199
+     *  And user verifies that city is Seattle
+     *  And user verifies that state_province is Washington
+     */
 
 
 }
