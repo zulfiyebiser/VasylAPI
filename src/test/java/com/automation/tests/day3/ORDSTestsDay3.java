@@ -40,9 +40,12 @@ public class ORDSTestsDay3 {
         given().
                 accept("application/json").
                 pathParam("id", 100).
-        when().get("/employees/{id}").
-        then().assertThat().statusCode(200).
-        and().assertThat().body("employee_id", is(100)).log().all(true);
+                when().get("/employees/{id}").
+                then().assertThat().statusCode(200).
+                and().assertThat().body("employee_id", is(100),
+                      "department_id", is(90),
+                                              "last_name", is("King")).
+                log().all(true);
         //body ("phone_number") --> 515.123.4567
         //is is coming from ---> import static org.hamcrest.Matchers.*;
     }
