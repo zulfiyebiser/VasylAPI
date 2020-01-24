@@ -2,6 +2,7 @@ package com.automation.tests.day3;
 
 import com.automation.utilities.ConfigurationReader;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.BeforeAll;
 import io.restassured.http.Header;
@@ -164,7 +165,7 @@ public class ORDSTestsDay3 {
         List<Object> phoneNumbers=given().
                 accept("application/json").
                 when().get("/employees").
-                thenReturn().jsonPath().get("items.phone_number");
+                thenReturn().jsonPath().get("items.phone_number"); //it calls Gpath (GroovyPath), like Xpath(XMLpath),
 
 //        Replaces each element of this list with the result of applying the operator to that element.
 //        replace '.' with '-' in every value
@@ -185,7 +186,21 @@ public class ORDSTestsDay3 {
      *
      */
 
+    @Test
     public void test8(){
+        Response response = given().
+                                accept(ContentType.JSON).
+                                pathParam("id", 1700).
+                            when().
+                                get("/locations/{id}");
+
+        response.
+                then().
+                    assertThat().body("location_id", is(1700)).
+                    assertThat().body("postal_code", is("98199")).
+                    assertThat().body("city", is("Seattle")).
+                    assertThat().body("state_province", is("Washington")).
+                    log().body();
 
     }
 
