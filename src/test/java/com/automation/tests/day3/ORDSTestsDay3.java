@@ -22,7 +22,7 @@ public class ORDSTestsDay3 {
     //we are asking for json as a response
     @Test
     public void test1() {
-        given().
+         given().
                 accept("application/json").
                 get("/employees").
          then().
@@ -30,5 +30,6 @@ public class ORDSTestsDay3 {
                 and().assertThat().contentType("application/json").
                 log().all(true);
     }
+
 
 }
