@@ -102,15 +102,31 @@ public class ORDSTestsDay3 {
         System.out.println(firstEmployee);
 
         //since firstEmployee it's a map (key-value pair, we can iterate through it by using Entry. entry represent one key=value pair)
+        // put ? as a value (Map<String, ?>), because there are values of different data type: string, integer, etc..
+        //if you put String as value, you might get some casting exception that cannot convert from integer(or something else) to string
         for (Map.Entry<String, ?> entry : firstEmployee.entrySet()) {
             System.out.println("key: " + entry.getKey() + ", value: " + entry.getValue());
         }
 //       get and print all last names
+//        items it's an object. whenever you need to read some property from the object, you put object.property
+//        but, if response has multiple objects, we can get property from every object
         List<String> lastNames = json.get("items.last_name");
         for (String str : lastNames) {
             System.out.println("last name: " + str);
         }
 
+    }
+
+    //write a code to
+    //get info from /countries as List<Map<String, ?>>
+    //prettyPrint() - print json/xml/html in nice format and returns string, thus we cannot retrieve jsonpath without extraction...
+    //prettyPeek() does same job, but return Response object, and from that object we can get json path.
+    @Test
+    public void test5() {
+        JsonPath json = given().
+                accept("application/json").
+                when().
+                get("/countries").prettyPeek().jsonPath();
     }
 
 
