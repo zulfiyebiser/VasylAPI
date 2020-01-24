@@ -174,16 +174,19 @@ public class ORDSTestsDay3 {
     }
 
 
-    /**
-     * Given accept type as JSON
-     * And path parameter is id
-     * When user sends get request to /locations
+    /** ####TASK#####
+     *  Given accept type as JSON
+     *  And path parameter is id with value 1700
+     *  When user sends get request to /locations
      *  Then user verifies that status code is 200
-     *  And user verifies that location_id is 1700
-     *  And user verifies that postal_code is 98199
-     *  And user verifies that city is Seattle
-     *  And user verifies that state_province is Washington
+     *  And user verifies following json path information:
+     *      |location_id|postal_code|city   |state_province|
+     *      |1700       |98199      |Seattle|Washington    |
+     *
      */
 
+    public void test8(){
+
+    }
 
 }
