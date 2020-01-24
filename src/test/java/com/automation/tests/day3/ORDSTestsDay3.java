@@ -8,6 +8,7 @@ import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,18 +128,37 @@ public class ORDSTestsDay3 {
         JsonPath json = given().
                 accept("application/json").
                 when().
-                get("/countries").prettyPeek().jsonPath();
+                get("/countries").prettyPeek().jsonPath(); // exclude .prettyPeek() and you will not see detailed info about response
 
         List<HashMap<String, ?>> allCountries = json.get("items");
 
         System.out.println(allCountries);
-            // when we read data from json response, values are not only strings
+        // when we read data from json response, values are not only strings
         //so if we are not sure that all values will have same data type
         //we can put ?
-        for(HashMap<String, ?> map: allCountries){
+        for (HashMap<String, ?> map : allCountries) {
             System.out.println(map);
         }
     }
+
+    // get collection of employee's salaries
+    // then sort it
+    // and print
+    @Test
+    public void test6(){
+        List<Integer> salaries = given().
+                                        accept("application/json").
+                                 when().
+                                        get("/employees").
+                                 thenReturn().jsonPath().get("items.salary");
+        Collections.sort(salaries);//sort from a to z, 0-9
+        Collections.reverse(salaries);
+        System.out.println(salaries);
+    }
+
+    //get collection of phone numbers, from employees
+    //and replace all dots "." in every phone number with dash "-"
+
 
 
 }
