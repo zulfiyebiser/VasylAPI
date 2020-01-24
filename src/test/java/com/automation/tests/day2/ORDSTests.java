@@ -39,7 +39,7 @@ public class ORDSTests {
 
         assertEquals(200, response.getStatusCode());
 
-        System.out.println(response.prettyPrint());
+        response.prettyPrint();
     }
 
     //#TASK: get employee with id 100 and verify that response returns status code 200
