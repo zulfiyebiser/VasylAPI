@@ -109,5 +109,55 @@ public class ORDSTestsDay4 {
         assertEquals(25, countries.size());
     }
 
+    /**
+     * given path parameter is "/countries" and region id is 2
+     * when user makes get request
+     * then assert that status code is 200
+     * and user verifies that body returns following country names
+     *  |Argentina                |
+     *  |Brazil                   |
+     *  |Canada                   |
+     *  |Mexico                   |
+     *  |United States of America |
+     *
+     */
+
+    @Test
+    @DisplayName("Verify that payload contains following countries")
+    public void test5() {
+        //to use List.of() set java 9 at least
+        List<String> expected = List.of("Argentina", "Brazil", "Canada", "Mexico", "United States of America");
+
+        Response response = given().
+                                accept(ContentType.JSON).
+                                queryParam("q", "{\"region_id\":\"2\"}").
+                            when().
+                                get("/countries").prettyPeek();
+        List<String> actual = response.jsonPath().getList("items.country_name");
+
+        assertEquals(expected, actual);
+
+        ///with assertThat()
+
+        given().
+                accept(ContentType.JSON).
+                queryParam("q", "{\"region_id\":\"2\"}").
+        when().
+                get("/countries").
+        then().assertThat().body("items.country_name" , contains("Argentina", "Brazil", "Canada", "Mexico", "United States of America"));
+    }
+
+    /**
+     * given path parameter is "/employees"
+     * when user makes get request
+     * then assert that status code is 200
+     * Then user verifies that every employee has positive salary
+     *
+     */
+    @Test
+    @DisplayName("Verify that every employee has positive salary")
+    public void test6(){
+
+    }
 }
 
