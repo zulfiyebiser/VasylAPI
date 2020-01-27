@@ -157,7 +157,24 @@ public class ORDSTestsDay4 {
     @Test
     @DisplayName("Verify that every employee has positive salary")
     public void test6(){
+        given().
+                accept(ContentType.JSON).
+        when().
+                get("/employees").
+        then().
+                assertThat().
+                    statusCode(200).
+                    body("items.salary", everyItem(greaterThan(0)));
 
+        //whenever you specify path as items.salary, you will get collection of salaries
+        //then to check every single value
+        //we can use everyItem(is()), everyItem(greaterThan())
+        /**
+         * Creates a matcher for {@link Iterable}s that only matches when a single pass over the
+         * examined {@link Iterable} yields items that are all matched by the specified
+         * <code>itemMatcher</code>.
+         * For example:
+         * <pre>assertThat(Arrays.asList("bar", "baz"), everyItem(startsWith("ba")))</pre>*/
     }
 }
 
