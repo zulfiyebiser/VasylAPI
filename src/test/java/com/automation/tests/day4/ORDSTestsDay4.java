@@ -65,6 +65,31 @@ public class ORDSTestsDay4 {
     @Test
     @DisplayName("Verify that country_name from payload is \"United States of America\"")
     public void test2() {
+        given().
+                accept(ContentType.JSON).
+                queryParam("q", "{\"country_id\":\"US\"}").
+        when().
+                get("/countries").
+        then().
+                assertThat().
+                    contentType(ContentType.JSON).
+                    statusCode(200).
+                    body("items[0].country_name", is("United States of America")).
+                    log().all(true);
+    }
+
+    @Test
+    @DisplayName("Get all links and print them")
+    public void test3() {
+        Response response = given().
+                            accept(ContentType.JSON).
+                            queryParam("q", "{\"country_id\":\"US\"}").
+                            when().
+                            get("/countries");
+
+        JsonPath jsonPath = response.jsonPath();
+
+
 
     }
 
