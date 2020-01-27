@@ -152,8 +152,7 @@ public class ORDSTestsDay3 {
                                  when().
                                         get("/employees").
                                  thenReturn().jsonPath().get("items.salary");
-        Collections.sort(salaries);//sort from a to z, 0-9
-        Collections.reverse(salaries);
+        Collections.sort(salaries, Collections.reverseOrder());//sort from a to z, 0-9
         System.out.println(salaries);
     }
 

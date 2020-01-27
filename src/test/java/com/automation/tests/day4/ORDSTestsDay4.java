@@ -215,5 +215,45 @@ public class ORDSTestsDay4 {
         expected = expected.replace("-", ".");
         assertEquals(expected, actual);
     }
+
+    /**
+     * given path parameter is "/employees"
+     * when user makes get request
+     * then assert that status code is 200
+     * and verify that body returns following salary information after sorting from higher to lower
+     *  24000, 17000, 17000, 12008, 11000,
+     *  9000, 9000, 8200, 8200, 8000,
+     *  7900, 7800, 7700, 6900, 6500,
+     *  6000, 5800, 4800, 4800, 4200,
+     *  3100, 2900, 2800, 2600, 2500
+     *
+     */
+
+    @Test
+    @DisplayName("verify that body returns following salary information after sorting from higher to lower(after sorting it in descending order)")
+    public void test8(){
+        List<Integer> expectedSalaries = List.of(24000, 17000, 17000, 12008, 11000,
+                                                9000, 9000, 8200, 8200, 8000,
+                                                7900, 7800, 7700, 6900, 6500,
+                                                6000, 5800, 4800, 4800, 4200,
+                                                3100, 2900, 2800, 2600, 2500);
+        Response response = given().
+                                accept(ContentType.JSON).
+                            when().
+                                get("/employees");
+        assertEquals(200, response.statusCode());
+
+        List<Integer> actualSalaries = response.jsonPath().getList("items.salary");
+
+        Collections.sort(actualSalaries, Collections.reverseOrder());
+
+        System.out.println(actualSalaries);
+
+        assertEquals(expectedSalaries, actualSalaries, "Salaries are not matching");
+
+
+
+
+    }
 }
 
