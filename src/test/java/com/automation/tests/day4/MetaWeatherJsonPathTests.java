@@ -98,6 +98,31 @@ public class MetaWeatherJsonPathTests {
         //String.class, String.class will force jsonpath to return map with String as key and value
         assertEquals(expected, jsonPath.getMap("[0]", String.class, String.class));
         //for first title, title[0], but for first object, we can say just [0]
+        //if one object is a key=value pair like map, collection of this objects can be represented as list of map
+        List<Map<String, ?>> values = jsonPath.get();
+       for(Map<String, ?> value: values){
+           System.out.println(value);
+       }
+    }
+
+    /* * TASK
+            * Given accept type is JSON
+            * When users sends a GET request to "/search"
+            * And query parameter is 'Las'
+            * Then user verifies that payload  contains following titles:
+            * |Glasgow  |
+            * |  Dallas |
+            * |Las Vegas|*/
+    @Test
+    public void test3(){
+        given().
+            accept(ContentType.JSON).
+            queryParam("query", "Las").
+        when().
+            get("/search").
+        then().assertThat().body("title", hasItems("Glasgow", "Dallas", "Las Vegas"));
+        //hasItems - exact match
+        //containsItems - partial match
     }
 
 
