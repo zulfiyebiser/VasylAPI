@@ -121,6 +121,20 @@ public class ORDSTestsDay4 {
      *  |United States of America |
      *
      */
+//to switch to java 9, add/replace it in pom.xml:
+
+//    <build>
+//        <plugins>
+//            <plugin>
+//                <groupId>org.apache.maven.plugins</groupId>
+//                <artifactId>maven-compiler-plugin</artifactId>
+//                <configuration>
+//                    <source>9</source>
+//                    <target>9</target>
+//                </configuration>
+//            </plugin>
+//        </plugins>
+//    </build>
 
     @Test
     @DisplayName("Verify that payload contains following countries")
@@ -175,6 +189,31 @@ public class ORDSTestsDay4 {
          * <code>itemMatcher</code>.
          * For example:
          * <pre>assertThat(Arrays.asList("bar", "baz"), everyItem(startsWith("ba")))</pre>*/
+    }
+
+    /**
+     * given path parameter is "/employees/{id}"
+     * and path parameter is 101
+     * when user makes get request
+     * then assert that status code is 200
+     * and verifies that phone number is 515-123-4568
+     *
+     */
+
+    @Test
+    @DisplayName("Verify that employee 101 has following phone number: 515-123-4568")
+    public void test7(){
+        Response response = given().
+                                accept(ContentType.JSON).
+                            when().
+                                get("/employees/{id}", 101);
+        assertEquals(200, response.getStatusCode());
+
+        String expected = "515-123-4568";
+        String actual = response.jsonPath().get("phone_number");
+
+        expected = expected.replace("-", ".");
+        assertEquals(expected, actual);
     }
 }
 
