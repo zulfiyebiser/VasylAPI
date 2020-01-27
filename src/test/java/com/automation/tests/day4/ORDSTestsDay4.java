@@ -82,15 +82,31 @@ public class ORDSTestsDay4 {
     @DisplayName("Get all links and print them")
     public void test3() {
         Response response = given().
-                            accept(ContentType.JSON).
-                            queryParam("q", "{\"country_id\":\"US\"}").
+                                accept(ContentType.JSON).
+//                                queryParam("q", "{\"country_id\":\"US\"}").
                             when().
-                            get("/countries");
+                                get("/countries");
 
         JsonPath jsonPath = response.jsonPath();
+        //if I don't put index, I will get collection of properties (only if they exists)
+        List<?> links = jsonPath.getList("items.links.href");
 
+        for(Object link: links){
+            System.out.println(link);
+        }
 
+    }
 
+    @Test
+    @DisplayName("Verify that payload contains only 25 countries")
+    public void test4(){
+        List<?> countries = given().
+                                accept(ContentType.JSON).
+                            when().
+                                get("/countries").prettyPeek().
+                            thenReturn().jsonPath().getList("items");
+
+        assertEquals(25, countries.size());
     }
 
 }
