@@ -3,10 +3,10 @@ package com.automation.pojos;
 import com.google.gson.annotations.SerializedName;
 
 public class Job {
-    @SerializedName("job_id")
+    @SerializedName("job_id") //we have add this if variable name in java is different from variable name in JSON
     private String jobId;
 
-    private String job_title;
+    private String job_title;//otherwise, Gson will map them automatically
     private Integer min_salary;
     private Integer max_salary;
 
@@ -29,7 +29,7 @@ public class Job {
     }
 
     public String getJob_title() {
-        return jobId;
+        return job_title;
     }
 
     public void setJob_title(String job_title) {
