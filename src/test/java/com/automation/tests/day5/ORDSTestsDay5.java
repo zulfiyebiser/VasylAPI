@@ -27,8 +27,13 @@ public class ORDSTestsDay5 {
      * given path parameter is "/employees"
      * when user makes get request
      * then user verifies that status code is 200
-     * and user verifies that average salary is grater that 5000
+     * and user verifies that average salary is grater than $5000
      */
+    //till 11:23
+    @Test
+    @DisplayName("Verify that average salary is grater than $5000")
+    public void test1(){
 
+    }
 
 }
