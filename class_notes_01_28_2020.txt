@@ -1,0 +1,20 @@
+Today 01/28/2020
+
+	Agenda:
+		-let's finish scenarios from previous class
+		-JSON
+		-Gson
+		-POJO
+		-Serialization
+		-De-serialization
+		-POST
+		-PUT
+		-DELETE
+
+#################################################
+POSTMAN collection for cybertektraining.com: https://www.getpostman.com/collections/6b948470664b6261eaf9
+
+Just go to postman -> import --> link --> insert that link and you will get collection of endpoints. This collection represents hat you can do with this web service  and how to do it.
+
+
+
