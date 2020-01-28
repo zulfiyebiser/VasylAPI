@@ -156,10 +156,12 @@ public class MetaWeatherJsonPathTests {
         List<String> actual = response.jsonPath().getList("sources.title");
 
         assertEquals(expected, actual);
+
+//        Break till 11:15
     }
 //
 //            * Given accept type is JSON
-//            * When users sends a GET request to "/location"
+//            * When users sends a GET request to "/location/{woid}"
 //            * And path parameter is '44418'
 //            * Then verify following that payload contains weather forecast sources
 //            * |BBC                 |
