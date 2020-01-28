@@ -10,7 +10,8 @@ public class Job {
     private Integer min_salary;
     private Integer max_salary;
 
-    public Job(){
+
+    public Job() {
     }
 
     public Job(String jobId, String job_title, Integer min_salary, Integer max_salary) {

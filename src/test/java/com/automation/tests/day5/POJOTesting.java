@@ -2,6 +2,7 @@ package com.automation.tests.day5;
 
 
 import com.automation.pojos.Job;
+import com.automation.pojos.Location;
 import com.automation.utilities.ConfigurationReader;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -30,11 +31,11 @@ public class POJOTesting {
 
     @Test
     @DisplayName("Get job info from JSON and convert it into POJO")
-    public void test1(){
+    public void test1() {
         Response response = given().
-                                accept(ContentType.JSON).
-                            when().
-                                get("/jobs");
+                accept(ContentType.JSON).
+                when().
+                get("/jobs");
 
         JsonPath jsonPath = response.jsonPath();
         //this is deserialization
@@ -43,24 +44,24 @@ public class POJOTesting {
 
         System.out.println(job);
 
-        System.out.println("Job id: "+job.getJobId());
+        System.out.println("Job id: " + job.getJobId());
     }
 
     @Test
     @DisplayName("Convert from POJO to JSON")
-    public void test2(){
+    public void test2() {
         Job sdet = new Job("SDET", " Software Development Engineer in Test", 5000, 20000);
 
         Gson gson = new Gson();
         String json = gson.toJson(sdet); // convert POJO to JSON: serialization
 
-        System.out.println("JSON file"+json);
-        System.out.println("From toString(): "+sdet);
+        System.out.println("JSON file" + json);
+        System.out.println("From toString(): " + sdet);
     }
 
     @Test
     @DisplayName("Convert JSON into collection of POJO's")
-    public void test3(){
+    public void test3() {
         Response response = given().
                 accept(ContentType.JSON).
                 when().
@@ -69,8 +70,36 @@ public class POJOTesting {
         JsonPath jsonPath = response.jsonPath();
         List<Job> jobs = jsonPath.getList("items", Job.class);
 
-        for (Job job: jobs){
+        for (Job job : jobs) {
+            System.out.println(job.getJob_title());
+        }
+
+        for (Job job : jobs) {
             System.out.println(job);
+        }
+    }
+
+    @Test
+    @DisplayName("Convert from JSON to Location POJO")
+    public void test4() {
+        Response response = given().
+                accept(ContentType.JSON).
+                when().
+                get("/locations/{location_id}", 2500);
+        Location location = response.jsonPath().getObject("", Location.class);
+
+        System.out.println(location);
+
+
+        Response response2 = given().
+                accept(ContentType.JSON).
+                when().
+                get("/locations");
+
+        List<Location> locations = response2.jsonPath().getList("items", Location.class);
+
+        for(Location l: locations){
+            System.out.println(l);
         }
     }
 
