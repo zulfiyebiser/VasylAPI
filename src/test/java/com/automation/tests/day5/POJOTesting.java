@@ -61,7 +61,17 @@ public class POJOTesting {
     @Test
     @DisplayName("Convert JSON into collection of POJO's")
     public void test3(){
+        Response response = given().
+                accept(ContentType.JSON).
+                when().
+                get("/jobs");
 
+        JsonPath jsonPath = response.jsonPath();
+        List<Job> jobs = jsonPath.getList("items", Job.class);
+
+        for (Job job: jobs){
+            System.out.println(job);
+        }
     }
 
 }
