@@ -10,10 +10,7 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.*;
@@ -113,6 +110,7 @@ public class MetaWeatherJsonPathTests {
             * |Glasgow  |
             * |  Dallas |
             * |Las Vegas|*/
+
     @Test
     public void test3(){
         given().
@@ -125,6 +123,52 @@ public class MetaWeatherJsonPathTests {
         //containsItems - partial match
     }
 
+//            * TASK
+            //* Given accept type is JSON
+            //* When users sends a GET request to "/search"
+//            * And query parameter is 'Las'
+//            * Then verify that every item in payload has location_type City
+    @Test
+    @DisplayName("Verify that every item in payload has location_type City")
+    public void test4(){
+        given().
+                accept(ContentType.JSON).
+                queryParam("query", "Las").
+        when().
+                get("/search").
+        then().assertThat().body("location_type", everyItem(is("City"))).
+        log().all(true);
+
+    }
+
+    @Test
+    @DisplayName("Verify following that payload contains weather forecast sources")
+    public void test5(){
+        List<String> expected = Arrays.asList("BBC","Forecast.io","HAMweather","Met Office",
+                                                "OpenWeatherMap","Weather Underground",
+                                                "World Weather Online");
+        Response response =   given().
+                                     accept(ContentType.JSON).
+                                     pathParam("woeid", 44418).
+                                when().
+                                    get("/location/{woeid}");
+
+        List<String> actual = response.jsonPath().getList("sources.title");
+
+        assertEquals(expected, actual);
+    }
+//
+//            * Given accept type is JSON
+//            * When users sends a GET request to "/location"
+//            * And path parameter is '44418'
+//            * Then verify following that payload contains weather forecast sources
+//            * |BBC                 |
+//            * |Forecast.io         |
+//            * |HAMweather          |
+//            * |Met Office          |
+//            * |OpenWeatherMap      |
+//            * |Weather Underground |
+//            * |World Weather Online|
 
 }
 /**
@@ -139,25 +183,11 @@ public class MetaWeatherJsonPathTests {
  * |Las Vegas|
  * <p>
  * <p>
- * TASK
- * Given accept type is JSON
- * When users sends a GET request to "/search"
- * And query parameter is 'Las'
- * Then verify that every item in payload has location_type City
+
  * <p>
  * <p>
  * TASK
- * Given accept type is JSON
- * When users sends a GET request to "/location"
- * And path parameter is '44418'
- * Then verify following that payload contains weather forecast sources
- * |BBC                 |
- * |Forecast.io         |
- * |HAMweather          |
- * |Met Office          |
- * |OpenWeatherMap      |
- * |Weather Underground |
- * |World Weather Online|
+
  * <p>
  * TASK
  * Given accept type is JSON
