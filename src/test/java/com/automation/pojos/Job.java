@@ -1,7 +1,11 @@
 package com.automation.pojos;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Job {
-    private String job_id;
+    @SerializedName("job_id")
+    private String jobId;
+
     private String job_title;
     private Integer min_salary;
     private Integer max_salary;
@@ -9,23 +13,23 @@ public class Job {
     public Job(){
     }
 
-    public Job(String job_id, String job_title, Integer min_salary, Integer max_salary) {
-        this.job_id = job_id;
+    public Job(String jobId, String job_title, Integer min_salary, Integer max_salary) {
+        this.jobId = jobId;
         this.job_title = job_title;
         this.min_salary = min_salary;
         this.max_salary = max_salary;
     }
 
-    public String getJob_id() {
-        return job_id;
+    public String getJobId() {
+        return jobId;
     }
 
-    public void setJob_id(String job_id) {
-        this.job_id = job_id;
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
     public String getJob_title() {
-        return job_title;
+        return jobId;
     }
 
     public void setJob_title(String job_title) {
@@ -51,7 +55,7 @@ public class Job {
     @Override
     public String toString() {
         return "Job{" +
-                "job_id='" + job_id + '\'' +
+                "jobId='" + jobId + '\'' +
                 ", job_title='" + job_title + '\'' +
                 ", min_salary=" + min_salary +
                 ", max_salary=" + max_salary +
