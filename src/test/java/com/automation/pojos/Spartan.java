@@ -15,8 +15,14 @@ public class Spartan {
     private String gender;//"gender"
     private long phone;//"phone"
 
-    public Spartan(){
+    public Spartan() {
 
+    }
+
+    public Spartan(String name, String gender, long phone) {
+        this.name = name;
+        this.gender = gender;
+        this.phone = phone;
     }
 
     public Spartan(int spartanId, String name, String gender, long phone) {
@@ -66,5 +72,20 @@ public class Spartan {
                 ", gender='" + gender + '\'' +
                 ", phone=" + phone +
                 '}';
+    }
+
+    public Spartan withPhone(long phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public Spartan withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Spartan withGender(String gender) {
+        this.gender = gender;
+        return this;
     }
 }

@@ -129,5 +129,20 @@ public class SpartanTests {
      * in case of created record
      */
 
+    @Test
+    @DisplayName("Create new spartan and verify that status code is 201")
+    public void test5(){
+        Spartan spartan = new Spartan();
+        spartan.setGender("male");
+        spartan.setName("Mister Twister");
+        spartan.setPhone(5712134235L);
+
+        //builder pattern, one of the design patterns in OOP
+        Spartan spartan1 = new Spartan().
+                                withGender("Male").
+                                withName("Some User").
+                                withPhone(5712134235L);
+        System.out.println(spartan1);
+    }
 
 }
