@@ -27,7 +27,9 @@ import static org.hamcrest.Matchers.*;
 public class SpartanTests {
 
     @BeforeAll
-    public void setup(){
+    public static void setup(){
         baseURI = ConfigurationReader.getProperty("spartan.uri");
     }
+
+
 }
