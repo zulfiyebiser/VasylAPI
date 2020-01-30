@@ -147,7 +147,7 @@ public class SpartanTests {
 
         Response response = given().
                                 contentType(ContentType.JSON).
-                                body(spartan1).
+                                body(spartan).
                             when().
                                 post("/spartans");
         assertEquals(201, response.getStatusCode(), "Status code is wrong!");
