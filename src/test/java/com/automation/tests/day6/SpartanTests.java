@@ -132,17 +132,30 @@ public class SpartanTests {
     @Test
     @DisplayName("Create new spartan and verify that status code is 201")
     public void test5(){
+        //builder pattern, one of the design patterns in OOP
+        //instead of having too many different constructors
+        //we can use builder pattern and chain with{preopertyName} methods to specify properties of an object
+        Spartan spartan1 = new Spartan().
+                withGender("Male").
+                withName("Some User").
+                withPhone(5712134235L);
+
         Spartan spartan = new Spartan();
-        spartan.setGender("male");
+        spartan.setGender("Male");
         spartan.setName("Mister Twister");
         spartan.setPhone(5712134235L);
 
-        //builder pattern, one of the design patterns in OOP
-        Spartan spartan1 = new Spartan().
-                                withGender("Male").
-                                withName("Some User").
-                                withPhone(5712134235L);
-        System.out.println(spartan1);
+        Response response = given().
+                                contentType(ContentType.JSON).
+                                body(spartan).
+                            when().
+                                post("/spartans");
+        assertEquals(201, response.getStatusCode(), "Status code is wrong!");
+        assertEquals("application/json", response.getContentType(), "Content type is invalid!");
+        assertEquals(response.jsonPath().getString("success"), "A Spartan is Born!");
+
+        response.prettyPrint();
+
     }
 
 }
