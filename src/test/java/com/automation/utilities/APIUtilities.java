@@ -81,6 +81,7 @@ public class APIUtilities {
      */
     public static void deleteAllSpartans(){
         Response response = given().
+                basePath(baseURI).
                 accept(ContentType.JSON).
                 when().
                 get("/spartans");
