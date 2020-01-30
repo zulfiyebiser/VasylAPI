@@ -13,10 +13,11 @@ import static io.restassured.RestAssured.given;
 public class APIUtilities {
     /**
      * This method can POST new spartan
+     *
      * @param spartan POJO
      * @return response object
      */
-    public Response postSpartan(Spartan spartan){
+    public Response postSpartan(Spartan spartan) {
         RestAssured.baseURI = ConfigurationReader.getProperty("spartan.uri");
         Response response = given().
                 contentType(ContentType.JSON).
@@ -28,10 +29,11 @@ public class APIUtilities {
 
     /**
      * This method can POST new spartan
+     *
      * @param spartan as map
      * @return response object
      */
-    public Response postSpartan(Map<String, ?> spartan){
+    public Response postSpartan(Map<String, ?> spartan) {
         RestAssured.baseURI = ConfigurationReader.getProperty("spartan.uri");
         Response response = given().
                 contentType(ContentType.JSON).
@@ -44,10 +46,12 @@ public class APIUtilities {
 
     /**
      * This method can POST new spartan
+     *
      * @param filePath to the Spartan external JSON file
      * @return response object
      */
-    public Response postSpartan(String filePath){
+    public Response postSpartan(String filePath) {
+        RestAssured.baseURI = ConfigurationReader.getProperty("spartan.uri");
         File file = new File(filePath);
         RestAssured.baseURI = ConfigurationReader.getProperty("spartan.uri");
         Response response = given().
@@ -55,6 +59,17 @@ public class APIUtilities {
                 body(file).
                 when().
                 post("/spartans");
+        return response;
+    }
+
+    /**
+     * Method to delete spartan
+     * @param id of spartan that you would like to delete
+     * @return response object that you can assert later
+     */
+    public Response deleteSpartanById(int id) {
+        RestAssured.baseURI = ConfigurationReader.getProperty("spartan.uri");
+        Response response = RestAssured.when().delete("/spartans/{id}", id);
         return response;
     }
 }
