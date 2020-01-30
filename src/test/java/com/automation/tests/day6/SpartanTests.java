@@ -141,13 +141,13 @@ public class SpartanTests {
                 withPhone(5712134235L);
 
         Spartan spartan = new Spartan();
-        spartan.setGender("Male");
+        spartan.setGender("Male");//Male or Female
         spartan.setName("Mister Twister");
-        spartan.setPhone(5712134235L);
+        spartan.setPhone(5712134235L); //at least 10 digits
 
         Response response = given().
                                 contentType(ContentType.JSON).
-                                body(spartan).
+                                body(spartan1).
                             when().
                                 post("/spartans");
         assertEquals(201, response.getStatusCode(), "Status code is wrong!");
@@ -155,6 +155,15 @@ public class SpartanTests {
         assertEquals(response.jsonPath().getString("success"), "A Spartan is Born!");
 
         response.prettyPrint();
+
+        Spartan spartan_from_response = response.jsonPath().getObject("data", Spartan.class);
+
+        System.out.println("Spartan id: "+spartan_from_response.getSpartanId());
+
+//        //delete spartan that you've just created
+//        when().delete("/spartans/{id}", spartan_from_response.getSpartanId()).
+//                prettyPeek().
+//                then().assertThat().statusCode(204);
 
     }
 
