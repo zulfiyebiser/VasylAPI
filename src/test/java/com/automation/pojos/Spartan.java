@@ -9,11 +9,11 @@ import com.google.gson.annotations.SerializedName;
 //           "phone": 7654321876
 //           },
 public class Spartan {
-    @SerializedName("id")
+    @SerializedName("id")// "id"
     private int spartanId;
-    private String name;
-    private String gender;
-    private long phone;
+    private String name;// "name"
+    private String gender;//"gender"
+    private long phone;//"phone"
 
     public Spartan(){
 
