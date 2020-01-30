@@ -120,9 +120,13 @@ public class SpartanTests {
     /** TASK
      * given accept content type as JSON
      * when user sends POST request to /spartans
-     * then user should be able to create new spartan
+     * and user should be able to create new spartan
      *      |gender|name           |phone     |
      *      | male |Mister Twister |5712134235|
+     * then user verifies that status code is 201
+     *
+     * 201 - means created. Whenever you POST something, you should get back 201 status code
+     * in case of created record
      */
 
 
