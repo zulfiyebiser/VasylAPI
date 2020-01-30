@@ -11,6 +11,7 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class APIUtilities {
+    private String URI = ConfigurationReader.getProperty("spartan.uri");
     /**
      * This method can POST new spartan
      *
@@ -18,9 +19,9 @@ public class APIUtilities {
      * @return response object
      */
     public Response postSpartan(Spartan spartan) {
-        RestAssured.baseURI = ConfigurationReader.getProperty("spartan.uri");
         Response response = given().
                 contentType(ContentType.JSON).
+                basePath(URI).
                 body(spartan).
                 when().
                 post("/spartans");
@@ -69,7 +70,6 @@ public class APIUtilities {
      */
     public Response deleteSpartanById(int id) {
         RestAssured.baseURI = ConfigurationReader.getProperty("spartan.uri");
-        Response response = RestAssured.when().delete("/spartans/{id}", id);
-        return response;
+        return RestAssured.when().delete("/spartans/{id}", id);
     }
 }
