@@ -31,5 +31,65 @@ public class SpartanTests {
         baseURI = ConfigurationReader.getProperty("spartan.uri");
     }
 
+    /**
+     * given accept content type as JSON
+     * when user sends GET request to /spartans
+     * then user verifies that status code is 200
+     * and user verifies that content type is JSON
+     */
 
+    @Test
+    @DisplayName("Verify that /spartans end-point returns 200 and content type as JSON")
+    public void test1(){
+        given().
+                accept(ContentType.JSON).
+        when().
+                get("/spartans").prettyPeek().
+        then().assertThat().
+                statusCode(200).
+                contentType(ContentType.JSON);
+
+    }
+
+
+    /** TASK
+     * given accept content type as XML
+     * when user sends GET request to /spartans
+     * then user verifies that status code is 200
+     * and user verifies that content type is XML
+     */
+    @Test
+    @DisplayName("Verify that /spartans end-point returns 200 and content type as XML")
+    public void test2(){
+        //accept(ContentType.XML). <- you are asking for body format as XML
+        //contentType(ContentType.XML) <- you are verifying that body format is XML
+        given().
+                accept(ContentType.XML).
+                when().
+                get("/spartans").prettyPeek().
+                then().assertThat().
+                statusCode(200).
+                contentType(ContentType.XML);
+
+    }
+
+    /** TASK
+     * given accept content type as JSON
+     * when user sends GET request to /spartans
+     * then user saves payload in collection
+     */
+    @Test
+    @DisplayName("Save payload into java collection")
+    public void test3(){
+        Response response = given().
+                                contentType(ContentType.JSON).
+                            when().
+                               get("/spartans");
+
+        List<Map<String, ?>> collection = response.jsonPath().get();
+
+        for(Map<String, ?> map: collection){
+            System.out.println(map);
+        }
+    }
 }
