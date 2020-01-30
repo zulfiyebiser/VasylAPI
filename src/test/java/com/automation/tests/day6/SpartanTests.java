@@ -187,12 +187,15 @@ public class SpartanTests {
                                 get("/spartans");
         //I collected all user id's
         List<Integer> userIDs = response.jsonPath().getList("id");
+
         //I sorted user id's in descending order
         Collections.sort(userIDs, Collections.reverseOrder());
         System.out.println("Before: "+userIDs);
 
         //I went through half of the collection, and deleted half of the users
+        //userIDs.size()/2 - represents half of the spartans
         for(int i=0; i< userIDs.size()/2;i++){
+            //will delete spartan based on id that you specify
             when().delete("/spartans/{id}", userIDs.get(i));
         }
 
