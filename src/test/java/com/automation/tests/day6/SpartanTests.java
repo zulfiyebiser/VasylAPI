@@ -1,5 +1,6 @@
 package com.automation.tests.day6;
 
+import com.automation.pojos.Spartan;
 import org.junit.jupiter.api.BeforeAll;
 
 import com.automation.pojos.Job;
@@ -58,11 +59,13 @@ public class SpartanTests {
      * then user verifies that status code is 200
      * and user verifies that content type is XML
      */
-    @Test
+    @Test//comeback at 12:12
     @DisplayName("Verify that /spartans end-point returns 200 and content type as XML")
     public void test2(){
-        //accept(ContentType.XML). <- you are asking for body format as XML
-        //contentType(ContentType.XML) <- you are verifying that body format is XML
+        //asking
+        //accept(ContentType.XML). <- you are asking for payload format as XML from web service
+        //receiving
+        //contentType(ContentType.XML) <- you are verifying that payload's format is XML
         given().
                 accept(ContentType.XML).
                 when().
@@ -76,7 +79,7 @@ public class SpartanTests {
     /** TASK
      * given accept content type as JSON
      * when user sends GET request to /spartans
-     * then user saves payload in collection
+     * then user saves payload into collection
      */
     @Test
     @DisplayName("Save payload into java collection")
@@ -92,4 +95,35 @@ public class SpartanTests {
             System.out.println(map);
         }
     }
+
+    /** TASK
+     * given accept content type as JSON
+     * when user sends GET request to /spartans
+     * then user saves payload into collection of Spartan
+     */
+
+    @Test
+    @DisplayName("Save payload into java collection of Spartan")
+    public void test4(){
+        Response response = given().
+                                contentType(ContentType.JSON).
+                            when().
+                                get("/spartans").prettyPeek();
+        //whenever you see: Class object = response.jsonPath.getObject() | deserialization
+        List<Spartan> collection = response.jsonPath().getList("", Spartan.class);
+
+        for(Spartan spartan: collection){
+            System.out.println(spartan);
+        }
+    }
+
+    /** TASK
+     * given accept content type as JSON
+     * when user sends POST request to /spartans
+     * then user should be able to create new spartan
+     *      |gender|name           |phone     |
+     *      | male |Mister Twister |5712134235|
+     */
+
+
 }
