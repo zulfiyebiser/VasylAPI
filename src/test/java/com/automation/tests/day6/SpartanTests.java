@@ -310,9 +310,9 @@ public class SpartanTests {
 
 
     @Test
-    @DisplayName("Get all spartan id's and print it as list")
+    @DisplayName("Update spartan")
     public void test9() {
-         //break till 4:17
+
     }
 
 }
