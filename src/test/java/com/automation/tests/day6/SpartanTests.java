@@ -1,6 +1,7 @@
 package com.automation.tests.day6;
 
 import com.automation.pojos.Spartan;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
 
 import com.automation.pojos.Job;
@@ -203,9 +204,44 @@ public class SpartanTests {
 //
 //        response.prettyPeek();
     }
+
+//    "Phone number should be at least 10 digit and UNIQUE!!",
+    @Test
+    @DisplayName("Add 100 test users to Spartan app")
+    public void test8(){
+        Faker faker = new Faker();
+        for(int i=0; i<100; i++){
+            Spartan spartan = new Spartan();
+
+            spartan.setName(faker.name().firstName());
+            //remove all non-digits
+            //
+            String phone = faker.phoneNumber().subscriberNumber(12).replaceAll("\\D", "");
+            //convert from String to Long
+            spartan.setPhone(Long.parseLong(phone));
+
+            spartan.setGender("Male");
+
+            System.out.println(spartan);
+
+            Response response = given().
+                    contentType(ContentType.JSON).
+                    body(spartan).
+                    when().
+                    post("/spartans");
+
+            System.out.println(response.jsonPath().getString("success"));
+
+            assertEquals(201, response.getStatusCode());
+              //come back at 3:20
+        }
+    }
+
+
+
     @Test
     @DisplayName("Get all spartan id's and print it as list")
-    public void test8(){
+    public void test9(){
 
     }
 
