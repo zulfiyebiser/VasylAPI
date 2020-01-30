@@ -167,4 +167,43 @@ public class SpartanTests {
 
     }
 
+    @Test
+    @DisplayName("Delete user")
+    public void test6(){
+        int idOfTheUserThatYouWantToDelete = 125;
+
+        Response response = when().delete("/spartans/{id}", idOfTheUserThatYouWantToDelete);
+
+        response.prettyPeek();
+    }
+
+    @Test
+    @DisplayName("Delete half of the records")
+    public void test7(){
+        int idOfTheUserThatYouWantToDelete = 125;
+        Response response = given().
+                                accept(ContentType.JSON).
+                            when().
+                                get("/spartans");
+        //I collected all user id's
+        List<Integer> userIDs = response.jsonPath().getList("id");
+        //I sorted user id's in descending order
+        Collections.sort(userIDs, Collections.reverseOrder());
+        System.out.println("Before: "+userIDs);
+
+        //I went through half of the collection, and deleted half of the users
+        for(int i=0; i< userIDs.size()/2;i++){
+            when().delete("/spartans/{id}", userIDs.get(i));
+        }
+
+//        Response response2 = when().delete("/spartans/{id}", idOfTheUserThatYouWantToDelete);
+//
+//        response.prettyPeek();
+    }
+    @Test
+    @DisplayName("Get all spartan id's and print it as list")
+    public void test8(){
+
+    }
+
 }
