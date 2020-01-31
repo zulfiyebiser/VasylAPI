@@ -22,10 +22,6 @@ public class Address {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
-
     public String getCity() {
         return city;
     }

@@ -23,10 +23,6 @@ public class Contact {
         return contactId;
     }
 
-    public void setContactId(int contactId) {
-        this.contactId = contactId;
-    }
-
     public String getEmailAddress() {
         return emailAddress;
     }
