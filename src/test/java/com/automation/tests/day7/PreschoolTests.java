@@ -1,6 +1,7 @@
 package com.automation.tests.day7;
 
 import com.automation.pojos.Spartan;
+import com.automation.pojos.Student;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -30,6 +31,17 @@ public class PreschoolTests {
     @BeforeAll
     public static void setup(){
         baseURI = ConfigurationReader.getProperty("school.uri");
+    }
 
+    @Test
+    @DisplayName("Get student with id 2633 and convert payload into POJO")
+    public void test1(){
+        Response response = given().
+                                accept(ContentType.JSON).
+                                pathParam("id", 2633).
+                            when().
+                                get("/student/{id}");
+
+        Student student = response.jsonPath().getObject("students", Student.class);
     }
 }
