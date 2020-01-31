@@ -83,9 +83,25 @@ public class SpartansTestsDay7 {
     }
 
     @Test
-    @DisplayName("update spartan")
+    @DisplayName("update spartan, only name PATCH")
     public void test3(){
+        Map<String, Object> update = new HashMap<>();
 
+        update.put("name", "Lynda");
+        update.put("gender", "Female");
+
+        given().
+                contentType(ContentType.JSON).
+                body(update).
+                pathParam("id", 904).
+        when().
+                patch("/spartans/{id}").prettyPeek().
+        then().assertThat().
+                statusCode(204);
+        //since response doesn't contain body, after PATCH request,
+        //we don't need  accept(ContentType.JSON).
+        // PUT - all parameters
+        // PATCH - 1+ parameters
     }
 
 }
