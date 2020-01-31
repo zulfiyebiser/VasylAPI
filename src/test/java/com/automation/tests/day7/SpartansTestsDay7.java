@@ -51,4 +51,41 @@ public class SpartansTestsDay7 {
                 body("success", is("A Spartan is Born!"));
     }
 
+    @Test
+    @DisplayName("Add new user by using map")
+    public void test2(){
+        Map<String, Object> spartan = new HashMap<>();
+        spartan.put("phone", 12999999117L);
+        spartan.put("gender", "Male");
+        spartan.put("name", "John Deer");
+        // you must specify content type, whenever you POST
+        //contentType(ContentType.JSON)
+
+        assertEquals("Male", spartan.get("gender"));
+
+        given().
+                contentType(ContentType.JSON).
+                accept(ContentType.JSON).
+                body(spartan).
+        when().
+                post("/spartans").prettyPeek().
+        then().assertThat().
+                statusCode(201).
+                body("success", is("A Spartan is Born!")).
+                body("data.name", is("John Deer")).
+                body("data.gender", is("Male"));
+    //in the response, we have spartan object inside data variable
+    //to get properties we need to specify name of that object data
+    //put . and parameter that we want to read
+    // data.id , data.gender, data.name
+    // success - property, string variable
+    // data - object that represents spartan
+    }
+
+    @Test
+    @DisplayName("update spartan")
+    public void test3(){
+
+    }
+
 }
