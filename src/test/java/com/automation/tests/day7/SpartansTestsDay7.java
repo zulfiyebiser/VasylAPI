@@ -45,7 +45,7 @@ public class SpartansTestsDay7 {
                 accept(ContentType.JSON).
                 body(file).
         when().
-                post("/spartans").
+                post("/spartans").prettyPeek().
         then().assertThat().
                 statusCode(201).
                 body("success", is("A Spartan is Born!"));

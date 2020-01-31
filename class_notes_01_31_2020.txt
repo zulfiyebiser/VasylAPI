@@ -151,5 +151,62 @@ You can use yours too...
 just replace host name: ec2-3-81-4-150.compute-1.amazonaws.com
 
 
+With RestAssured, how we can POST new spartan?
+
+1. Create POJO and insert it into body of request:
+
+		Spartan spartan = new Spartan();
+        spartan.setGender("Male");//Male or Female
+        spartan.setName("Mister Twister");
+        spartan.setPhone(5712134235L); //at least 10 digits
+
+
+Response response = given().
+                         accept(ContentType.JSON).		 <--- what data type we want as payload
+                         contentType(ContentType.JSON). <--- to specify what data we are sending
+                         body(spartan).			        <- this is a body of request
+                      post("/spartans").prettyPeek();     <--- POST request with path
+
+
+
+RestAssured will use Gson library, to automatically serialize our POJO into JSON.
+
+2. Read external JSON file and insert it into body of request:
+
+File file = new File("src/resources/spartan.json");
+
+Response response = given().
+                         accept(ContentType.JSON).		 <--- what data type we want as payload
+                         contentType(ContentType.JSON). <--- to specify what data we are sending
+                         body(file). <- this is a body of request
+                      post("/spartans").prettyPeek();     <--- POST request with path
+
+3. Create map and insert it into body of request:
+
+? - works for parsing response.
+
+
+		Map<String, Object> spartan = new HashMap<>();
+        spartan.put("gender", "Male");//Male or Female
+        spartan.put("name", Mister Twister");
+        spartan.put("phone", 5712134235L); //at least 10 digits
+
+Object - super class for all classes in java. Long and String by default extend Object class.
+
+Response response = given().
+                         accept(ContentType.JSON).		 <--- what data type we want as payload
+                         contentType(ContentType.JSON). <--- to specify what data we are sending
+                         body(spartan).			        <- this is a body of request
+                      post("/spartans").prettyPeek();     <--- POST request with path
+
+To UPDATE existing one
+
+Response response = given().
+                          accept(ContentType.JSON).		 <--- what data type we want as payload
+                          contentType(ContentType.JSON). <--- to specify what data we are sending
+                          body(spartan).				 <--- this is a body of request
+                          pathParam("id", 380).			 <--- which spartan to update
+                      put("/spartans/{id}").prettyPeek();<--- PUT request with path
+
 
 
