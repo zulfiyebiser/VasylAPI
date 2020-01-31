@@ -45,5 +45,11 @@ public class PreschoolTests {
         Student student = response.jsonPath().getObject("students[0]", Student.class);
 
         System.out.println(student);
+
+        assertEquals(2633, student.getStudentId());
+        assertEquals(11, student.getBatch());
+        assertEquals("123456" ,student.getAdmissionNo());
+        assertEquals("7925 Jones Branch Dr #3300", student.getContact().getPermanentAddress());
+    //comeback at 4:15
     }
 }
