@@ -38,7 +38,17 @@ public class SpartansTestsDay7 {
     @Test
     @DisplayName("Add new user by using external JSON file")
     public void test1(){
+        File file = new File(System.getProperty("user.dir")+"/spartan.json");
 
+        given().
+                contentType(ContentType.JSON).
+                accept(ContentType.JSON).
+                body(file).
+        when().
+                post("/spartans").
+        then().assertThat().
+                statusCode(201).
+                body("success", is("A Spartan is Born!"));
     }
 
 }
