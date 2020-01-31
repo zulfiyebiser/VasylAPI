@@ -40,8 +40,10 @@ public class PreschoolTests {
                                 accept(ContentType.JSON).
                                 pathParam("id", 2633).
                             when().
-                                get("/student/{id}");
+                                get("/student/{id}").prettyPeek();
 
         Student student = response.jsonPath().getObject("students", Student.class);
+
+        System.out.println(student);
     }
 }
