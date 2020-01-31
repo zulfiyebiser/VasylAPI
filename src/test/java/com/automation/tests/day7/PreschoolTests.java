@@ -42,7 +42,7 @@ public class PreschoolTests {
                             when().
                                 get("/student/{id}").prettyPeek();
 
-        Student student = response.jsonPath().getObject("students", Student.class);
+        Student student = response.jsonPath().getObject("students[0]", Student.class);
 
         System.out.println(student);
     }
