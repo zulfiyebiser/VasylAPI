@@ -41,7 +41,9 @@ public class PreschoolTests {
                                 pathParam("id", 2633).
                             when().
                                 get("/student/{id}").prettyPeek();
-
+        //deserialization
+        // from JSON to POJO
+        //student - is a POJO
         Student student = response.jsonPath().getObject("students[0]", Student.class);
 
         System.out.println(student);
@@ -50,6 +52,8 @@ public class PreschoolTests {
         assertEquals(11, student.getBatch());
         assertEquals("123456" ,student.getAdmissionNo());
         assertEquals("7925 Jones Branch Dr #3300", student.getContact().getPermanentAddress());
+        assertEquals("sdet@email.com", student.getContact().getEmailAddress());
+
     //comeback at 4:15
     }
 }

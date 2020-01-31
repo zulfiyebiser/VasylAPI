@@ -209,4 +209,61 @@ Response response = given().
                       put("/spartans/{id}").prettyPeek();<--- PUT request with path
 
 
+/**
+ * Class {@code Object} is the root of the class hierarchy.
+ * Every class has {@code Object} as a superclass. All objects,
+ * including arrays, implement the methods of this class.
+
+
+Preschool POSTMAN collection: https://www.getpostman.com/collections/86e64b62e4b310785969
+
+Break till 3:15
+
+
+
+
+Student{
+	admissionNo='123456',
+	batch=11,
+	birthDate='01/06/1990',
+	company=Company{
+			address=Address{
+						addressId=2633,
+						city='McLean',
+						state='Virginia',
+						street='7925 Jones Branch Dr #3300',
+						zipCode=7925
+						},
+					companyId=2633,
+					companyName='02/02/2020',
+					startDate='Cybertek',
+					title='SDET'
+					},
+				contact=Contact{
+						contactId=2633,
+						emailAddress='sdet@email.com',
+						phone='454-323-2341',
+						permanentAddress='7925 Jones Branch Dr #3300'
+					},
+	firstName='Guys do delete me  ',
+	gender='Male',
+	joinDate='11/26/2017',
+	lastName='Joker',
+	major='MBA',
+	password='AP-45',
+	section='1111',
+	studentId=2633,
+	subject='Math'
+}
+
+API key required by web service, to know who is using it. Thus, strangers cannot use the web service. To get an API key, you have to register first and that you will receive a key.
+Insert that key as a query parameter with every request:
+
+https://www.potterapi.com/v1/characters?key=$2a$10$uz3xGNC5vvHzxUzLU5gkW.yngiL6mstfGlwJ6EbqfyDYFAfiJJkvu
+
+
+
+
+
+
 
