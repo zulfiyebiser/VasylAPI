@@ -93,4 +93,23 @@ public class APIUtilities {
             System.out.println("Deleted spartan with id: "+userIDs.get(i));
         }
     }
+
+    /**
+     * Method to find duplicates in the list of objects. Override equals method for your custom class and provide strategy of equality.
+     * @param list of objects to search for duplicates
+     * @return true or false
+     */
+    public static boolean hasDuplicates(List list){
+        boolean hasDuplicates = false;
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < list.size(); j++) {
+                if (list.get(i).equals(list.get(j)) && i != j) {
+                    hasDuplicates = true;
+                    System.out.println("Duplicate: "+list.get(i));
+                    break;
+                }
+            }
+        }
+        return hasDuplicates;
+    }
 }
