@@ -28,6 +28,8 @@ import static org.hamcrest.Matchers.*;
 public class BasicAuthenticationTests {
     @BeforeAll
     public static void setup() {
+        //https will not work, because of SSL certificate issues
+        //this website doesn't have it
         baseURI = "http://practice.cybertekschool.com";
     }
 
