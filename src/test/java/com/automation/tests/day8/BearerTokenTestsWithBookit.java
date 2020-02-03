@@ -32,4 +32,17 @@ public class BearerTokenTestsWithBookit {
         baseURI = ConfigurationReader.getProperty("bookit.qa1");
     }
 
+    //Let's get list of all rooms and verify that status code is 200
+
+
+    public String getToken(){
+        //https://cybertek-reservation-api-qa.herokuapp.com/sign?email=vasyl@cybertekschool.com&password=cybertek2020
+        Response response = given().
+                                queryParam("email", ConfigurationReader.getProperty("team.leader.email")).
+                                queryParam("password", ConfigurationReader.getProperty("team.leader.password")).
+                            when().
+                                get("/sign").prettyPeek();
+        return  response.jsonPath().getString("accessToken");
+    }
+
 }
