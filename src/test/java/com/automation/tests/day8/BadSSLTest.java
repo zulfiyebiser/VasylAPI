@@ -32,7 +32,7 @@ public class BadSSLTest {
     }
 
     @Test
-    @DisplayName("Access web site with bad SSL")
+    @DisplayName("Access web site with bad SSL (MUST FAIL)")
     public void test1(){
         //unable to find valid certification path to requested target
         //no valid SSL - no handshake
@@ -54,5 +54,6 @@ public class BadSSLTest {
         System.out.println(response.statusCode());
 
         assertEquals(200, response.getStatusCode());
+
     }
 }
