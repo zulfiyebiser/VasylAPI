@@ -68,6 +68,27 @@ public class CalendarificTestAPIKey {
                         body("meta.error_detail", containsString("Missing or invalid api credentials."));
     }
 
-    //comeback at 11:15
+    /**
+     * Given accept content type as JSON
+     * And query parameter api_key with valid API key
+     * When user sends GET request to "/countries"
+     * Then user verifies that status code is 200
+     * And user verifies that status line contains "OK" message
+     * And user verifies that countries array is not empty
+     */
+
+    @Test
+    public void test2(){
+        given().
+                accept(ContentType.JSON).
+                queryParam("api_key", "ebe88078e981c84bedeb9e8a34ad927560e545f2").
+        when().
+                get("/countries").prettyPeek().
+        then().assertThat().statusCode(200).
+                            statusLine(containsString("OK")).
+                            body("response.countries", not(empty()));
+
+    }
+
 
 }
