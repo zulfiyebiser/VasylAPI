@@ -91,4 +91,36 @@ public class CalendarificTestAPIKey {
     }
 
 
+    /**
+     *
+     * Given accept content type as JSON
+     * And query parameter api_key with valid API key
+     * And query parameter country is equals to US
+     * And query parameter type is equals to national
+     * And query parameter year is equals to 2019
+     * When user sends GET request to "/holidays"
+     * Then user verifies that number of national holidays in US is equals to 11
+     */
+
+    @Test
+    @DisplayName("Verify that there are 11 national holidays in the US")
+    public void test3(){
+        Response response = given().
+                accept(ContentType.JSON).
+                queryParam("api_key","ebe88078e981c84bedeb9e8a34ad927560e545f2").
+                queryParam("country", "US").
+                queryParam("type", "national").
+                queryParam("year", 2019).
+        when().
+                get("/holidays").prettyPeek();
+        //shorter way with syntax sugar (hamcrest matcher)
+        response.then().assertThat().statusCode(200).body("response.holidays", hasSize(11));
+        //List<Map<String, ?>> - list of objects, since there are nested objects, we cannot specify some value type
+        List<Map<String, ?>> holidays = response.jsonPath().get("response.holidays");
+
+        //regular way
+        assertEquals(11, holidays.size(), "Wrong number of holidays!");
+        assertEquals(200, response.getStatusCode());
+
+    }
 }
