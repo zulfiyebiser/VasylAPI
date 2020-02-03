@@ -60,10 +60,13 @@ public class OMDBTestsAPIKey {
         System.out.println(payload);
 
         //entry - key=value pair
+        //map it's a collection of entries
         //how to iterate a map?
         for(Map.Entry<String, Object> entry: payload.entrySet()){
             System.out.println("Key: "+entry.getKey()+", value: "+entry.getValue());
         }
     }
+
+    //comeback at 2:10
 
 }
