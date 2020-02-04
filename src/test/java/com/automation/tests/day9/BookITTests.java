@@ -3,6 +3,7 @@ package com.automation.tests.day9;
 import com.automation.pojos.Room;
 import com.automation.pojos.Spartan;
 import com.automation.utilities.APIUtilities;
+import com.automation.utilities.ExcelUtil;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -109,17 +110,15 @@ public class BookITTests {
     }
 
 
-
-
     @Test
     @DisplayName("Verify that B12 exists")
     public void test5_1() {
         ///api/batches/{batch-number}
         given().
                 auth().oauth2(APIUtilities.getTokenForBookit()).
-        when().
+                when().
                 get("/api/batches/{batch-number}", 12).
-        then().assertThat().statusCode(200).log().body(true);
+                then().assertThat().statusCode(200).log().body(true);
 
     }
 //    campus-location	required	name of the campus which team will be added to
@@ -129,14 +128,14 @@ public class BookITTests {
     /**
      * given valid token is provided for student team leader
      * and user provides following query parameters
-     *  |campus-location|batch-number|team-name     |
-     *  |     VA        |    12      |Online_Hackers|
-     *  when user performs POST request to "/api/teams/team"
-     *  then user should verify that status code is 403
+     * |campus-location|batch-number|team-name     |
+     * |     VA        |    12      |Online_Hackers|
+     * when user performs POST request to "/api/teams/team"
+     * then user should verify that status code is 403
      */
     @Test
     @DisplayName("Create a new team in B12 (negative)")
-    public void test6(){
+    public void test6() {
         //Online_Hackers
 //        POST /api/teams/team
         given().
@@ -144,9 +143,9 @@ public class BookITTests {
                 queryParam("campus-location", "VA").
                 queryParam("batch-number", 12).
                 queryParam("team-name", "Online_Hackers").
-        when().
+                when().
                 post("/api/teams/team").
-       then().assertThat().statusCode(403).log().all(true);
+                then().assertThat().statusCode(403).log().all(true);
 
         //only teacher allowed to modify database. <---- authorization
         // 403 Forbidden - that means you are not authorized to do this
@@ -155,15 +154,15 @@ public class BookITTests {
     /**
      * given valid token is provided for teacher
      * and user provides following query parameters
-     *  |campus-location|batch-number|team-name     |
-     *  |     VA        |    12      |Online_Hackers|
-     *  when user performs POST request to "/api/teams/team"
-     *  then user should verify that status code is 201
+     * |campus-location|batch-number|team-name     |
+     * |     VA        |    12      |Online_Hackers|
+     * when user performs POST request to "/api/teams/team"
+     * then user should verify that status code is 201
      */
 
     @Test
     @DisplayName("Create a new team in B12 (positive)")
-    public void test7(){
+    public void test7() {
         //Online_Hackers
 //        POST /api/teams/team
         given().
@@ -190,7 +189,7 @@ public class BookITTests {
      */
     /**
      * POST /api/students/student
-     *
+     * <p>
      * Query Parameters
      * Parameter	    Demand	    Description
      * first-name	    required	first name of the student
@@ -201,13 +200,13 @@ public class BookITTests {
      * campus-location	required	name of the campus which student will be added to
      * batch-number	    required	number of the batch which student will be added to
      * team-name	    required	name of the team which student will be added to
-     *
+     * <p>
      * given valid token is provided for student team leader
      * and user provides following query parameters
-     *  |first-name  |last-name    |email         |password    |role               |campus-location|batch-number|team-name      |
-     *  |    YourName|YourLastName |temp@email.com| anypassword|student-team-member|      VA       |    12      | Online_Hackers|
-     *  when user performs POST request to "/api/students/student"
-     *  then user should verify that status code is 403
+     * |first-name  |last-name    |email         |password    |role               |campus-location|batch-number|team-name      |
+     * |    YourName|YourLastName |temp@email.com| anypassword|student-team-member|      VA       |    12      | Online_Hackers|
+     * when user performs POST request to "/api/students/student"
+     * then user should verify that status code is 403
      */
 
     @Test
@@ -223,16 +222,16 @@ public class BookITTests {
                 queryParam("campus-location", "VA").
                 queryParam("batch-number", 12).
                 queryParam("team-name", "Online_Hackers").
-        when().
+                when().
                 post("/api/students/student").
-        then().assertThat().statusCode(403).log().all(true).body("", contains("only teacher allowed to modify database."));
+                then().assertThat().statusCode(403).log().all(true).body("", contains("only teacher allowed to modify database."));
 
 
     }
 
     /**
      * POST /api/students/student
-     *
+     * <p>
      * Query Parameters
      * Parameter	    Demand	    Description
      * first-name	    required	first name of the student
@@ -243,13 +242,13 @@ public class BookITTests {
      * campus-location	required	name of the campus which student will be added to
      * batch-number	    required	number of the batch which student will be added to
      * team-name	    required	name of the team which student will be added to
-     *
+     * <p>
      * given valid token is provided for teacher
      * and user provides following query parameters
-     *  |first-name  |last-name    |email         |password    |role               |campus-location|batch-number|team-name      |
-     *  |    YourName|YourLastName |temp@email.com| anypassword|student-team-member|      VA       |    12      | Online_Hackers|
-     *  when user performs POST request to "/api/students/student"
-     *  then user should verify that status code is 403
+     * |first-name  |last-name    |email         |password    |role               |campus-location|batch-number|team-name      |
+     * |    YourName|YourLastName |temp@email.com| anypassword|student-team-member|      VA       |    12      | Online_Hackers|
+     * when user performs POST request to "/api/students/student"
+     * then user should verify that status code is 403
      */
 
     @Test
@@ -287,17 +286,17 @@ public class BookITTests {
 
     @Test
     @DisplayName("Delete student (negative)")
-    public void test9(){
+    public void test9() {
         given().
                 auth().oauth2(APIUtilities.getTokenForBookit()).
-        when().
+                when().
                 delete("/api/students/{id}", 5486).
-        then().assertThat().statusCode(403).log().all(true);
+                then().assertThat().statusCode(403).log().all(true);
     }
 
     @Test
     @DisplayName("Delete student (positive)")
-    public void test10(){
+    public void test10() {
         given().
                 auth().oauth2(APIUtilities.getTokenForBookit("teacher")).
                 when().
@@ -310,7 +309,7 @@ public class BookITTests {
     //let's find how to delete all users from Online_Hackers team
     @Test
     @DisplayName("Delete all people from Online_Hackers team")
-    public void test11(){
+    public void test11() {
         //I created toke only once
         //first of all, token doesn't expire that fast
         //plus, this token in bookit never expire, it's a bug(it's not a bug, it's a feature
@@ -320,9 +319,9 @@ public class BookITTests {
         String token = APIUtilities.getTokenForBookit("teacher");
 
         Response response = given().
-                                auth().oauth2(token).
-                            when().
-                                get("/api/teams/{id}", 5443);
+                auth().oauth2(token).
+                when().
+                get("/api/teams/{id}", 5443);
 
         response.then().log().all(true);
         //members.id
@@ -334,24 +333,25 @@ public class BookITTests {
 
         System.out.println(allIds);
 
-        for(int i=0; i<allIds.size();i++){
+        for (int i = 0; i < allIds.size(); i++) {
             given().
                     auth().oauth2(token).
-            when().
+                    when().
                     delete("/api/students/{id}", allIds.get(i)).
-            then().assertThat().statusCode(204).log().ifError();
+                    then().assertThat().statusCode(204).log().ifError();
             //.log().ifError(); --- will print response info into console, in case of error
             //if request was successful and assertion passed
             //you will not see response output
             //why? because it's too much print in console
 
-            System.out.println("Deleted student with id: "+allIds.get(i));
+            System.out.println("Deleted student with id: " + allIds.get(i));
 
         }
     }
+
     @Test
     @DisplayName("Get team info")
-    public void test12(){
+    public void test12() {
         String token = APIUtilities.getTokenForBookit("teacher");
 
         Response response = given().
@@ -366,7 +366,14 @@ public class BookITTests {
 
     @Test
     @DisplayName("Add new students from excel file")
-    public void test13(){
+    public void test13() {
+        String filePath = System.getProperty("user.dir") + "/src/test/resources/test_data/bookit_test_data.xlsx";
+        ExcelUtil excelUtil = new ExcelUtil(filePath, "students");
 
+        for (Map<String, String> map : excelUtil.getDataList()) {
+            System.out.println(map);
+        }
+        List<Map<String, String>> students = excelUtil.getDataList();
     }
+
 }
