@@ -373,7 +373,26 @@ public class BookITTests {
         for (Map<String, String> map : excelUtil.getDataList()) {
             System.out.println(map);
         }
+        //get the data from excel file
         List<Map<String, String>> students = excelUtil.getDataList();
+        //generate token
+        String token = APIUtilities.getTokenForBookit("teacher");
+        //loop through the collection of students
+        //and add them one by one
+        //we can specify query parameters one by one
+        //or put them as a map
+        //make sure that key names in the map
+        //matching query parameters
+        for(Map<String, String> student: students) {
+            given().
+                    auth().oauth2(token).
+                    queryParams(student).
+            when().
+                    post("/api/students/student").
+            then().assertThat().statusCode(201).
+                    log().body(true).log().ifError();
+        }
+        //log body of response
     }
 
 }
