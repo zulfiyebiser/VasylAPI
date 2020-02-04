@@ -62,8 +62,13 @@ public class WarmUP {
         //find - method to find some parameter
         //{it.parameter_name == value} find JSON object that is matching criteria
         //.parameter_that_you_want = return this parameter after filtering
-        int numberHolidays =response.jsonPath().get("response.countries.find {it.country_name == 'United Kingdom'}.total_holidays");
+        int numberHolidays = response.jsonPath().get("response.countries.find {it.country_name == 'United Kingdom'}.total_holidays");
 
+        //get all countries where number supported_languages is = 4
+
+        List<String> countries = response.jsonPath().get("response.countries.findAll {it.supported_languages == 4}.country_name");
+
+        System.out.println(countries);
 
         assertEquals(95,numberHolidays);
         System.out.println("MY TESTS PASSED SUCCESSFULLY😍😍");
