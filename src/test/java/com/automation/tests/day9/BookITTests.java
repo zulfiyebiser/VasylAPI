@@ -1,4 +1,6 @@
 package com.automation.tests.day9;
+
+import com.automation.pojos.Room;
 import com.automation.pojos.Spartan;
 import com.automation.utilities.APIUtilities;
 import com.github.javafaker.Faker;
@@ -25,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.Matchers.*;
+
 public class BookITTests {
 
     @BeforeAll
@@ -36,17 +39,16 @@ public class BookITTests {
      * Given accept content type as JSON
      * When user sends get requests to /api/rooms
      * Then user should get 401 status code
-     *
      */
 
     @Test
     @DisplayName("Verify that user cannot access bookit API without providing credentials")
-    public void test1(){
+    public void test1() {
         given().
                 accept(ContentType.JSON).
-        when().
+                when().
                 get("/api/rooms").
-        then().assertThat().statusCode(401).log().all(true);
+                then().assertThat().statusCode(401).log().all(true);
         //this service doesn't return 401, it returns 422
         //is it correct or wrong? good time talk to developer and check business requirements
     }
@@ -56,12 +58,11 @@ public class BookITTests {
      * And user provides invalid token
      * When user sends get requests to /api/rooms
      * Then user should get 422 status code
-     *
      */
 
     @Test
     @DisplayName("Verify that system doesn't accept invalid token")
-    public void test2(){
+    public void test2() {
         //
         //same procedure: you need to provide token
         //since bearer token was originally created for oauth 2.0
@@ -71,9 +72,9 @@ public class BookITTests {
         given().
                 accept(ContentType.JSON).
                 header("Authorization", "invalid token").
-        when().
+                when().
                 get("/api/rooms").prettyPeek().
-        then().assertThat().statusCode(422);
+                then().assertThat().statusCode(422);
     }
 
     /**
@@ -83,10 +84,27 @@ public class BookITTests {
      * and status code 200
      */
     @Test
-    public void test3(){
+    public void test3() {
         given().auth().oauth2(APIUtilities.getTokenForBookit()).
                 accept(ContentType.JSON).
                 when().
                 get("/api/rooms").prettyPeek();
+    }
+
+    @Test
+    @DisplayName("Get all roms and deserialize it into collection of Rooms")
+    public void test4() {
+        //in real work environment, common practice is to authenticate with SSL certificate
+        //you add SSL certificate on your side, with every request
+        //and then you can work with web service
+        Response response = given().auth().oauth2(APIUtilities.getTokenForBookit()).
+                accept(ContentType.JSON).
+                when().
+                get("/api/rooms").prettyPeek();
+        List<Room> rooms = response.jsonPath().getList("", Room.class);
+
+        for(Room room: rooms){
+            System.out.println(room);
+        }
     }
 }

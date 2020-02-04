@@ -3,7 +3,7 @@ package com.automation.pojos;
 public class Room {
     //if you don't want to serialize some property
     // from POJO -> to JSON it will not have id
-    private transient int id;
+    private int id;
     private String name;
     private String description;
     private int capacity;
