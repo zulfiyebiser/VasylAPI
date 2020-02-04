@@ -108,7 +108,51 @@ For example bookit:
 	admin - can do anything too
 
 
-break till 12:10
+Toke consists of 3 parts: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyMDY0IiwiYXVkIjoidGVhY2hlciJ9.japWZkmQ3ExAJA6HxXEMSm92h5ZfYARx1Ci8sSiLgzM
+
+header.payload.secret
+
+
+token is encoded with SHA 256 algorithm
+
+    {
+        "id": 0,
+        "name": null,
+        "description": null,
+        "capacity": 0,
+        "withTV": false,
+        "withWhiteBoard": false
+    },
+
+How to exclude id from serialized object?
+
+How to exclude certain properties from serialized object?
+
+
+transient - java keyword that prevents property serialization.
+
+Id doesn't impact on deserialization.
+
+#interview question:
+
+	Where do you store your test data?
+
+	-answer: since I use cucumber BDD, most of my test data is stored in feature files, as cucumber data tables or example tables. Also, I use excel files, so I keep them under resources --> test data folder.
+
+#interview question:
+
+	Who gives you a test data?
+
+	-answer: It depends, I can get it from manual testers, from developers or I create it by myself. There are bunch of resources where you can generates dummy data.
+
+
+
+
+
+
+
+
+
 
 
 
