@@ -1,0 +1,33 @@
+/**
+ *  ####### WARM-UP TASK ########
+ * Given accept content type as JSON
+ * And query parameter api_key with valid API key
+ * When user sends GET request to "/countries"
+ * Then user verifies that total number of holidays in United Kingdom is equals to 95
+ *
+ * website: https://calendarific.com/
+ *
+ *
+ *
+ */
+
+JSON
+WEB
+TOKEN
+
+ JWT Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI1Mzc2IiwiYXVkIjoic3R1ZGVudC10ZWFtLWxlYWRlciJ9.DoFI744aMLxUaf0GcjVOEDkJ3Wh7RlKDx-TYp8_sJpU
+
+ This ling weired string calls JWT Token. What it stand for? As you remember, there is something that call authentication. Basically, you have to tell to the server who you are. Once you sent credentials, server will send you a token. This token, like secret password, that you have to carry with every request.
+
+
+ So there are different ways of authentication:
+
+ 	Basic: username:password, it comes with HTTP by default. Not secured, especially, if you provide credentials as part of URL:
+
+ 	http://admin:admin@somewebsite.com
+
+
+Please comeback at 11:10
+
+
+
