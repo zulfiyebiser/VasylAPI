@@ -32,6 +32,8 @@ public class PreemptiveAuthentication {
     @Test
     @DisplayName("Preemptive authentication")
     public void test2(){
+        //it sends credentials with 1st request
+        //the benefit is that you load network less that with 2 calls
         given().
                 auth().preemptive().basic("admin", "admin").
                 when().
