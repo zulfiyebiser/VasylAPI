@@ -18,10 +18,25 @@ public class PreemptiveAuthentication {
     @Test
     @DisplayName("Normal basic authentication")
     public void test1(){
+        //actually, it will make 2 calls:
+        //1st: with no credentials, then will get 401,
+        // to ensure that only requested server will get credentials
+        //and then 2nd call will be with credentials
         given().
                 auth().basic("admin", "admin").
                 when().
                 get("/basic_auth").prettyPeek().
                 then().assertThat().statusCode(200);
     }
+
+    @Test
+    @DisplayName("Preemptive authentication")
+    public void test2(){
+        given().
+                auth().preemptive().basic("admin", "admin").
+                when().
+                get("/basic_auth").prettyPeek().
+                then().assertThat().statusCode(200);
+    }
+
 }
