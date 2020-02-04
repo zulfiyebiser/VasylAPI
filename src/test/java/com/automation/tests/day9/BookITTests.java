@@ -311,6 +311,12 @@ public class BookITTests {
     @Test
     @DisplayName("Delete all people from Online_Hackers team")
     public void test11(){
+        //I created toke only once
+        //first of all, token doesn't expire that fast
+        //plus, this token in bookit never expire, it's a bug(it's not a bug, it's a feature
+
+        //if we gonna generate token for every request,
+        //it will overload network.
         String token = APIUtilities.getTokenForBookit("teacher");
 
         Response response = given().
@@ -356,4 +362,5 @@ public class BookITTests {
         response.then().log().all(true);
     }
 
+    //break till 4:13
 }
