@@ -211,7 +211,7 @@ public class BookITTests {
      */
 
     @Test
-    @DisplayName("Create a new student")
+    @DisplayName("Create a new student (negative test)")
     public void test5() {
         given().
                 auth().oauth2(APIUtilities.getTokenForBookit()).
@@ -225,8 +225,58 @@ public class BookITTests {
                 queryParam("team-name", "Online_Hackers").
         when().
                 post("/api/students/student").
-        then().assertThat().statusCode(403).log().all(true);
+        then().assertThat().statusCode(403).log().all(true).body("", contains("only teacher allowed to modify database."));
 
+
+    }
+
+    /**
+     * POST /api/students/student
+     *
+     * Query Parameters
+     * Parameter	    Demand	    Description
+     * first-name	    required	first name of the student
+     * last-name	    required	last name of the student
+     * email	        required	email of the student, will be used for an authentication
+     * password	        required	password of the account, will be used for an authentication
+     * role      	    required	role of the student, [student-team-leader, student-team-member]
+     * campus-location	required	name of the campus which student will be added to
+     * batch-number	    required	number of the batch which student will be added to
+     * team-name	    required	name of the team which student will be added to
+     *
+     * given valid token is provided for teacher
+     * and user provides following query parameters
+     *  |first-name  |last-name    |email         |password    |role               |campus-location|batch-number|team-name      |
+     *  |    YourName|YourLastName |temp@email.com| anypassword|student-team-member|      VA       |    12      | Online_Hackers|
+     *  when user performs POST request to "/api/students/student"
+     *  then user should verify that status code is 403
+     */
+
+    @Test
+    @DisplayName("Create a new student (positive test)")
+    public void test8() {
+        given().
+                auth().oauth2(APIUtilities.getTokenForBookit("teacher")).
+                queryParam("first-name", "namr").
+                queryParam("last-name", "name").
+                queryParam("email", "email@enayu.com").
+                queryParam("password", "1234").
+                queryParam("role", "student-team-leader").
+                queryParam("campus-location", "VA").
+                queryParam("batch-number", 12).
+                queryParam("team-name", "Online_Hackers").
+                when().
+                post("/api/students/student").
+                then().statusCode(201).log().all(true);
+//        as a response, I've got this one
+//        HTTP/1.1 201 Created
+//        Connection: close
+//        Date: Tue, 04 Feb 2020 20:22:03 GMT
+//        Content-Type: application/json
+//        Server: Jetty(9.4.8.v20171121)
+//        Via: 1.1 vegur
+//
+//        user Vasyl Fomiuk has been added to database.
 
     }
 
