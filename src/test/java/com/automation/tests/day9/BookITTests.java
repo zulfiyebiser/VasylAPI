@@ -109,11 +109,7 @@ public class BookITTests {
     }
 
 
-    @Test
-    @DisplayName("Create a new student")
-    public void test5() {
 
-    }
 
     @Test
     @DisplayName("Verify that B12 exists")
@@ -213,5 +209,25 @@ public class BookITTests {
      *  when user performs POST request to "/api/students/student"
      *  then user should verify that status code is 403
      */
+
+    @Test
+    @DisplayName("Create a new student")
+    public void test5() {
+        given().
+                auth().oauth2(APIUtilities.getTokenForBookit()).
+                queryParam("first-name", "Vasyl").
+                queryParam("last-name", "Fomiuk").
+                queryParam("email", "baxex65713@hiwave.org").
+                queryParam("password", "1234").
+                queryParam("role", "student-team-leader").
+                queryParam("campus-location", "VA").
+                queryParam("batch-number", 12).
+                queryParam("team-name", "Online_Hackers").
+        when().
+                post("/api/students/student").
+        then().assertThat().statusCode(403).log().all(true);
+
+
+    }
 
 }
