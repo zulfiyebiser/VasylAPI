@@ -277,7 +277,83 @@ public class BookITTests {
 //        Via: 1.1 vegur
 //
 //        user Vasyl Fomiuk has been added to database.
+        // if you are getting 422, that means email already exists
 
+    }
+
+    //let's try to delete some student | 5486
+
+    //DELETE /api/students/{id}
+
+    @Test
+    @DisplayName("Delete student (negative)")
+    public void test9(){
+        given().
+                auth().oauth2(APIUtilities.getTokenForBookit()).
+        when().
+                delete("/api/students/{id}", 5486).
+        then().assertThat().statusCode(403).log().all(true);
+    }
+
+    @Test
+    @DisplayName("Delete student (positive)")
+    public void test10(){
+        given().
+                auth().oauth2(APIUtilities.getTokenForBookit("teacher")).
+                when().
+                delete("/api/students/{id}", 5480).
+                then().assertThat().
+                statusCode(not(403)).log().all(true);
+        // statusCode(not(403)) - to ensure that status code is anything but not 403
+    }
+
+    //let's find how to delete all users from Online_Hackers team
+    @Test
+    @DisplayName("Delete all people from Online_Hackers team")
+    public void test11(){
+        String token = APIUtilities.getTokenForBookit("teacher");
+
+        Response response = given().
+                                auth().oauth2(token).
+                            when().
+                                get("/api/teams/{id}", 5443);
+
+        response.then().log().all(true);
+        //members.id
+        //"members":  - it's an array of students
+        // if you need 1st person: members[0]
+        //if you need last one: members[-1]
+        //collect all properties: members.property_name
+        List<Integer> allIds = response.jsonPath().getList("members.id");
+
+        System.out.println(allIds);
+
+        for(int i=0; i<allIds.size();i++){
+            given().
+                    auth().oauth2(token).
+            when().
+                    delete("/api/students/{id}", allIds.get(i)).
+            then().assertThat().statusCode(204).log().ifError();
+            //.log().ifError(); --- will print response info into console, in case of error
+            //if request was successful and assertion passed
+            //you will not see response output
+            //why? because it's too much print in console
+
+            System.out.println("Deleted student with id: "+allIds.get(i));
+
+        }
+    }
+    @Test
+    @DisplayName("Get team info")
+    public void test12(){
+        String token = APIUtilities.getTokenForBookit("teacher");
+
+        Response response = given().
+                auth().oauth2(token).
+                when().
+                get("/api/teams/{id}", 5443);
+
+        response.then().log().all(true);
     }
 
 }
