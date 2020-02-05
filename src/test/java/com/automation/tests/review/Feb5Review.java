@@ -1,5 +1,6 @@
 package com.automation.tests.review;
 
+import com.automation.pojos.Movie;
 import com.automation.pojos.Spartan;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
@@ -80,6 +81,64 @@ public class Feb5Review {
         System.out.println("First title: "+firstTitle);
         System.out.println("Last title: "+lastTitle);
 
+        Movie firstMovie = response.jsonPath().getObject("Search[0]", Movie.class);
+
+        System.out.println(firstMovie.getTitle());
+        System.out.println(firstMovie.getYear());
+
+        List<Movie> movies = response.jsonPath().getList("Search", Movie.class);
+
+        //print only imdb id's of every movie
+        for(Movie movie: movies){
+            System.out.println(movie.getImdbID());
+        }
+        //print all titles
+        for(Movie movie: movies){
+            System.out.println(movie.getTitle());
+        }
+
+        //How to deal with nested JSON response?
+        //OR
+        //How to deserialize nested JSON?
+        // we can use List of Map where key is a string, and value is an object or?
+        // List<Map<String, ?>> or List<Map<String, Object>>
+        //or we can create a POJO by using composition:
+        /**
+         * public class Person{
+         *     private String name;
+         *     private String jobTitle;
+         *     private Address address;
+         *
+         *
+         *     class Address{
+         *         private String street;
+         *         private int aptNumber;
+         *         private int zipCode;
+         *     }
+         * }
+         *
+         * What are the requirements to POJO class?
+         *  - private instance variables
+         *  - getters/setters
+         *  - public no-arguments constructor
+         *
+         *  Everything else is optional.
+         *  We can override toString() method
+         *  to see information about object in plain text.
+         *  Or, human readable representation of the object.
+         *
+         *
+         *  Also, we can override equals() method to determine if 2 objects are equals
+         *  Keep in mind, that variable names should match with JSON variable names.
+         *  Otherwise, provide @SerializedName annotation.
+         *
+         *
+         * When one object is using another objects as instance variables,
+         * it calls composition. So we are able to use in one object,
+         * things from another object without inheritance. So Person in not a Address
+         * but Person has a Address. Instead of is-a relationship we have has-a relationship
+         * between classes.
+         */
         /**
          * given().
          *          content type: JSON, XML, TEXT...
